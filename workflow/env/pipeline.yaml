@@ -1,0 +1,11 @@
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - openjdk # open jdk 설치 
+  - kubernetes
+  - boto3
+  - python-kubernetes
+  - awscli
+  - awscliv2
