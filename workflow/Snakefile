@@ -7,7 +7,7 @@ RULES_DIR = 'rules' # 작업할 rule들이 보관된 디렉토리
 ENVS_DIR = 'envs' # 환경변수 디렉토리 
 SCRIPTS_DIR = 'scripts' # 스크립트 디렉토리 
 
-EXPORT_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}}/export_lims.txt", ODATE=ODATE)
+EXPORT_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/export_lims.txt", ODATE=ODATE)
 SFTP_MATCH1_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/sftp_odm.txt", ODATE=ODATE)
 EXPORT_SAMPLE_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/remain_sample.txt", ODATE=ODATE)
 LOAD_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_lims.txt", ODATE=ODATE)
