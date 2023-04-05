@@ -190,17 +190,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                       }
 
                     ],
-                    'volumeMounts':[{
-                        'name': 'dags',
-                        'mountPath': '/dags'
-                    }]
                 }],
-                'volumes': [{
-                    'name': 'dags',
-                    'persistentVolumeClaim': {
-                        'claimName': 'nfs-pvc'
-                    }
-                }]
             }
         }
         resp = api_instance.create_namespaced_pod(body=pod_manifest,
