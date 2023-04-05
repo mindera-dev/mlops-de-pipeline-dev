@@ -72,8 +72,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
             'spec': {
                 'securityContext': {
                     'fsGroup': 1000
-                },
-                'serviceAccountName': 'spark',
+                },                
                 'ttlSecondsAfterFinished': 600,
                 'containers': [{
                     'name': name,
