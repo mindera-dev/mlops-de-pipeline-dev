@@ -81,7 +81,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                     "args": [
                         "/bin/sh",
                         "-c",
-                        "cd /dags;while true;do date;sleep 5; done"
+                        "while true;do date;sleep 5; done"
                     ],
                     "env": [
                       {
