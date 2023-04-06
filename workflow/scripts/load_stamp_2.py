@@ -23,7 +23,7 @@ def main():
         c.assert_hostname = False
     Configuration.set_default(c)
     core_v1 = core_v1_api.CoreV1Api()
-    res = exec_commands('loadstamp2', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.1', '/java/datatransfer.sh odm 2023-03-17 odm1.3_fullSTAMP2_ODM_Export.xml STAMP-2', core_v1)
+    res = exec_commands('loadstamp2', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.2', '/java/datatransfer.sh odm 2023-03-17 odm1.3_fullSTAMP2_ODM_Export.xml STAMP-2', core_v1)
     print(res)
 
     #make result file
