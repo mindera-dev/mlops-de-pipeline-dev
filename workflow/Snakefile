@@ -13,7 +13,7 @@ EXPORT_SAMPLE_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/remain_sampl
 LOAD_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_lims.txt", ODATE=ODATE)
 LOAD_MATCH1_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_match_1.txt", ODATE=ODATE)
 LOAD_STAMP2_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_stamp_2.txt", ODATE=ODATE)
-LOAD_SAMPLE_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}//load_sample.txt", ODATE=ODATE)
+LOAD_SAMPLE_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_sample.txt", ODATE=ODATE)
 LOAD_FS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_fs.txt", ODATE=ODATE)
 LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", ODATE=ODATE)
 
