@@ -43,8 +43,8 @@ rule load_mart: #load mart 수행
 
 rule load_fs: #load fs 수행
 	input:
-		LOAD_LIMS_FILE
-		LOAD_MATCH1_FILE
+		LOAD_LIMS_FILE,
+		LOAD_MATCH1_FILE,
 		LOAD_SAMPLE_FILE
 	output: 
 		LOAD_FS_FILE
