@@ -7,7 +7,7 @@ RULES_DIR = 'rules' # 작업할 rule들이 보관된 디렉토리
 ENVS_DIR = 'envs' # 환경변수 디렉토리 
 SCRIPTS_DIR = 'scripts' # 스크립트 디렉토리 
 
-EXPORT_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/export_lims.txt", ODATE=ODATE)
+EXPORT_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}}/export_lims.txt", ODATE=ODATE)
 SFTP_MATCH1_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/sftp_odm.txt", ODATE=ODATE)
 EXPORT_SAMPLE_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/remain_sample.txt", ODATE=ODATE)
 LOAD_LIMS_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_lims.txt", ODATE=ODATE)
@@ -19,24 +19,19 @@ LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", 
 
 #include: f'{RULES_DIR}/pipeline.smk'
 #include: f'{RULES_DIR}/pipeline_test.smk' 
-
-rule all: # 전체 실행 룰 
+# 전체 실행 룰 => export lime                    --> load lims   --┐ 
+#                sftp match1                    --> load match1 ---> load fs => load mart
+#                export sample => remain sample --> load sample --┘
+rule all: 
 	input:
-		#MART_FILE 
-		#SFTP_MATCH1_FILE
-		#EXPORT_LIMS_FILE
-		#EXPORT_SAMPLE_FILE
-		LOAD_STAMP2_FILE
-		#LOAD_LIMS_FILE
+		LOAD_MART_FILE 		
 	group: "pipeline"
 
-rule sftp_odm: 
+rule load_mart: #load mart 수행
+	input:
+		LOAD_FS_FILE
 	output: 
-		#SFTP_MATCH1_FILE 
-		#EXPORT_LIMS_FILE
-		#EXPORT_SAMPLE_FILE
-		LOAD_STAMP2_FILE
-		#LOAD_LIMS_FILE
+		LOAD_MART_FILE
 	conda: 
 		f'{ENVS_DIR}/pipeline.yaml' 
 	params:
@@ -44,9 +39,99 @@ rule sftp_odm:
 	group: 
 		"pipeline" 
 	script: 
-		#f'{SCRIPTS_DIR}/sftp_odm.py' 
-		#f'{SCRIPTS_DIR}/export_lims.py' 
-		#f'{SCRIPTS_DIR}/remain_sample.py' 
-		f'{SCRIPTS_DIR}/load_stamp_2.py' 
-		#f'{SCRIPTS_DIR}/load_lims.py' 
-		
+		f'{SCRIPTS_DIR}/load_mart.py' 
+
+rule load_fs: #load fs 수행
+	input:
+		LOAD_LIMS_FILE
+		LOAD_MATCH1_FILE
+		LOAD_SAMPLE_FILE
+	output: 
+		LOAD_FS_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/load_fs.py' 
+
+rule load_lims: #load lims 수행
+	input:
+		EXPORT_LIMS_FILE
+	output: 
+		LOAD_LIMS_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/load_lims.py' 
+
+rule export_lims: #export lims 수행
+	output: 
+		EXPORT_LIMS_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/export_lims.py' 
+
+rule load_odm: #load odm(match-1) 수행
+	input:
+		SFTP_MATCH1_FILE
+	output: 
+		LOAD_MATCH1_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/load_match_1.py' 
+
+rule sftp_odm: #sftp odm 수행
+	output: 
+		SFTP_MATCH1_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/sftp_odm.py' 
+
+rule load_sample: #load sample 수행
+	input:
+		EXPORT_SAMPLE_FILE
+	output: 
+		LOAD_SAMPLE_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/load_sample.py' 
+
+rule remain_sample: #sftp odm 수행
+	output: 
+		EXPORT_SAMPLE_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/remain_sample.py' 
+
