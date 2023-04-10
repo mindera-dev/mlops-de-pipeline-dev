@@ -22,6 +22,7 @@ LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", 
 # 전체 실행 룰 => export lime                    --> load lims   --┐ 
 #                sftp match1                    --> load match1 ---> load fs => load mart
 #                export sample => remain sample --> load sample --┘
+
 rule all: 
 	input:
 		LOAD_MART_FILE 		
