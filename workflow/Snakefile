@@ -134,4 +134,3 @@ rule remain_sample: #sftp odm 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/remain_sample.py' 
-
