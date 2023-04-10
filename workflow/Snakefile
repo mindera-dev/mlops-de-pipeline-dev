@@ -27,6 +27,7 @@ rule all:
 	input:
 		LOAD_MART_FILE 		
 	group: "pipeline"
+		
 
 rule load_mart: #load mart 수행
 	input:
@@ -41,6 +42,7 @@ rule load_mart: #load mart 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/load_mart.py' 
+		
 
 rule load_fs: #load fs 수행
 	input:
@@ -57,6 +59,7 @@ rule load_fs: #load fs 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/load_fs.py' 
+		
 
 rule load_lims: #load lims 수행
 	input:
@@ -72,6 +75,7 @@ rule load_lims: #load lims 수행
 	script: 
 		f'{SCRIPTS_DIR}/load_lims.py' 
 
+		
 rule export_lims: #export lims 수행
 	output: 
 		EXPORT_LIMS_FILE
@@ -83,6 +87,7 @@ rule export_lims: #export lims 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/export_lims.py' 
+		
 
 rule load_odm: #load odm(match-1) 수행
 	input:
@@ -97,6 +102,7 @@ rule load_odm: #load odm(match-1) 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/load_match_1.py' 
+		
 
 rule sftp_odm: #sftp odm 수행
 	output: 
@@ -109,6 +115,7 @@ rule sftp_odm: #sftp odm 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/sftp_odm.py' 
+		
 
 rule load_sample: #load sample 수행
 	input:
@@ -123,6 +130,7 @@ rule load_sample: #load sample 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/load_sample.py' 
+		
 
 rule remain_sample: #sftp odm 수행
 	output: 
