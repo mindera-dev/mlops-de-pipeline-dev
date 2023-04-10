@@ -1,5 +1,6 @@
 import time
 import os
+import boto3
 from kubernetes import config
 from kubernetes.client import Configuration
 from kubernetes.client.api import core_v1_api
@@ -15,7 +16,7 @@ from kubernetes.stream import stream
 odate = "2023-03-17"
 
 def main():    
-    print('load_stamp2 start!!')
+    print('load_sample start!!')
 
     print('get reamin sample list!!')
     #get environment variable
