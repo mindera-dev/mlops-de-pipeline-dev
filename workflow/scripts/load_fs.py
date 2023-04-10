@@ -11,10 +11,12 @@ from kubernetes.stream import stream
 # - History : 2023.01.10 V1.0 initial develop 
 #
 
-def main():    
+odate = "2023-03-17"
+
+def main():
     #Run load fsdata
     print('load_fs start!!')
-    
+
     config.load_kube_config()
     try:
         c = Configuration().get_default_copy()
@@ -23,26 +25,26 @@ def main():
         c.assert_hostname = False
     Configuration.set_default(c)
     core_v1 = core_v1_api.CoreV1Api()
-    res = exec_commands('loadfs', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.1', '/java/datatransfer.sh fsdata 2022-12-21', core_v1)
+    shcommand = '/java/datatransfer.sh fsdata' + odate
+    res = exec_commands('loadfs', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.2', shcommand, core_v1)
     print(res)
 
     #make result file
-    #make result file
-    directory = "/home/ubuntu/mlops-de-pipeline/2023-03-17"
+    directory = "/home/ubuntu/mlops-de-pipeline/" + odate
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
     except OSError:
         print("Error: Failed to create the directory.")
 
-    f = open('/dags/mlops-pipeline-result/load_fs.txt','w')
-    f.write(str(res))    
-    f.close()
-
-    f = open(snakemake.output[0],'w')
+    f = open(directory + '/load_fs.txt','w')
     f.write(str(res))
     f.close()
 
+    print(snakemake.output[0])
+    f = open(snakemake.output[0],'w')
+    f.write(str(res))
+    f.close()
     
 def exec_commands(appname, image_name, commands, api_instance = None):
     namespace = 'default'
@@ -75,7 +77,6 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                 'securityContext': {
                     'fsGroup': 1000
                 },
-                'serviceAccountName': 'spark',
                 'ttlSecondsAfterFinished': 600,
                 'containers': [{
                     'name': name,
@@ -84,7 +85,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                     "args": [
                         "/bin/sh",
                         "-c",
-                        "cd /dags;while true;do date;sleep 5; done"
+                        "while true;do date;sleep 5; done"
                     ],
                     "env": [
                       {
@@ -193,17 +194,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                       }
 
                     ],
-                    'volumeMounts':[{
-                        'name': 'dags',
-                        'mountPath': '/dags'
-                    }]
                 }],
-                'volumes': [{
-                    'name': 'dags',
-                    'persistentVolumeClaim': {
-                        'claimName': 'nfs-pvc'
-                    }
-                }]
             }
         }
         resp = api_instance.create_namespaced_pod(body=pod_manifest,
