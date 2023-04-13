@@ -183,7 +183,7 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                       },
                       {
                         "name": "s3_region_lims_name",
-                        "value": "us-west-1"
+                        "value": "us-east-2"
                       },
                       {
                         "name": "access_bucket_snakemake_name",
