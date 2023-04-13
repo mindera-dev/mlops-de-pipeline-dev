@@ -19,7 +19,7 @@ print(odate)
 
 def main():
     #Run load lims
-    print('export_lims start!!')
+    print('load_lims start!!')
 
     config.load_kube_config()
     try:
