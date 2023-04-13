@@ -11,7 +11,10 @@ from kubernetes.stream import stream
 # - History : 2023.01.10 V1.0 initial develop 
 #
 
-odate = "2023-03-17"
+#odate = "2023-03-17"
+
+odate=snakemake.params.ODATE
+print(odate)
 
 def main():
     #Run load lims
