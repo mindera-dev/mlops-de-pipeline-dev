@@ -12,7 +12,6 @@ from kubernetes.stream import stream
 #
 
 #odate = "2023-03-17"
-
 odate=snakemake.params.ODATE
 print(odate)
 odate = str(odate)[0:2] + '-' + str(odate)[2:4] + '-' + str(odate)[4:6]
