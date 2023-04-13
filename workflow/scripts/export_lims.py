@@ -14,6 +14,7 @@ from kubernetes.stream import stream
 #odate = "2023-03-17"
 #odate=snakemake.config["ODATE"]
 odate=snakemake.params.ODATE
+print(odate)
 
 def main():      
     #Run export lims
