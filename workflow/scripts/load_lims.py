@@ -40,11 +40,11 @@ def main():
             os.makedirs(directory)
     except OSError:
         print("Error: Failed to create the directory.")
-
+    '''
     f = open(directory + '/load_lims.txt','w')
     f.write(str(res))
     f.close()
-
+    '''
     print(snakemake.output[0])
     f = open(snakemake.output[0],'w')
     f.write(str(res))
