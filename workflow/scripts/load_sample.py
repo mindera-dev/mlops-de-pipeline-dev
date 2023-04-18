@@ -27,7 +27,7 @@ def main():
     os_aws_access_key_id = os.getenv("AWS_ACCESS_KEY_ID","")
     os_aws_secret_access_key = os.getenv("AWS_SECRET_ACCESS_KEY","")
     os_s3_region_name = os.getenv("s3_region_name","us-west-2")
-    os_bucket_name = os.getenv("access_bucket_snakemake_name", "mlops-pipeline-result")
+    os_bucket_name = os.getenv("access_bucket_snakemake_name", "")
 
     print("aak : " + os_aws_access_key_id)
     print("asak : " + os_aws_secret_access_key)    
