@@ -22,7 +22,37 @@ LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", 
 # 전체 실행 룰 => export lime                    --> load lims   --┐ 
 #                sftp match1                    --> load match1 ---> load fs => load mart
 #                export sample => remain sample --> load sample --┘
+rule all: 
+	input:
+		LOAD_SAMPLE_FILE 		
+	group: "pipeline"
+		
+rule load_sample: #load sample 수행
+	input:
+		EXPORT_SAMPLE_FILE
+	output: 
+		LOAD_SAMPLE_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/load_sample.py' 
+		
 
+rule remain_sample: #sftp odm 수행
+	output: 
+		EXPORT_SAMPLE_FILE
+	conda: 
+		f'{ENVS_DIR}/pipeline.yaml' 
+	params:
+		ODATE=ODATE 
+	group: 
+		"pipeline" 
+	script: 
+		f'{SCRIPTS_DIR}/remain_sample.py' 
 '''	
 rule all: 
 	input:
@@ -57,7 +87,7 @@ rule export_lims: #export lims 수행
 		f'{SCRIPTS_DIR}/export_lims.py' 
 		
 '''
-
+'''
 rule all: 
 	input:
 		LOAD_MART_FILE 		
@@ -179,3 +209,4 @@ rule remain_sample: #sftp odm 수행
 	script: 
 		f'{SCRIPTS_DIR}/remain_sample.py' 
 
+'''
