@@ -23,12 +23,12 @@ LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", 
 #                sftp match1                    --> load match1 ---> load fs => load mart
 #                export sample => remain sample --> load sample --┘
 
+'''	
 rule all: 
 	input:
 		LOAD_LIMS_FILE 		
 	group: "pipeline"
 
-'''	
 rule load_lims: #load lims 수행
 	input:
 		EXPORT_LIMS_FILE
