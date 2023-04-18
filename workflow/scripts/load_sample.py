@@ -30,7 +30,8 @@ def main():
     os_bucket_name = os.getenv("access_bucket_snakemake_name", "mlops-pipeline-result")
 
     print("aak : " + os_aws_access_key_id)
-    print("asak : " + os_aws_secret_access_key)
+    print("asak : " + os_aws_secret_access_key)    
+    print("bucket : " + os_bucket_name)
 
     #set file name about get remain sample list txt
     file = 'not_exist_pipeline_' + odate + '.txt'
