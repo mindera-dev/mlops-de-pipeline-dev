@@ -30,7 +30,7 @@ def main():
     Configuration.set_default(c)
     core_v1 = core_v1_api.CoreV1Api()
     shcommand = '/java/datatransfer.sh odm ' + odate + ' odm1.3_fullMATCH_ODM_Export.xml MATCH-1'
-    res = exec_commands('loadstamp2', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.2', shcommand, core_v1)
+    res = exec_commands('loadstamp2', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.3', shcommand, core_v1)
     print(res)
 
     #make result file
