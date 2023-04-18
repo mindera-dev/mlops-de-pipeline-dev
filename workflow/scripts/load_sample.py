@@ -71,59 +71,62 @@ def main():
     if check_exist_file == True:
         print("file exist, file download!!")
         s3.download_file(os_bucket_name, bucket_file, local_file)
+        
+        #check remain sample list file
+        f = open(local_file, 'r')    
+        line = f.readline()
+        print("line",line)
 
-    
+        f.close()    
+
+        #Repeat load sample
+        cnt = 0
+        dict_line = eval(line)
+        result = ""
+        config.load_kube_config()
+        for i in dict_line:
+            batch = i['batch']
+            sample = i['sample']
+            config.load_kube_config()
+            try:
+                c = Configuration().get_default_copy()
+            except AttributeError:
+                c = Configuration()
+                c.assert_hostname = False
+            Configuration.set_default(c)
+            core_v1 = core_v1_api.CoreV1Api()
+            shcommand = '/java/datatransfer.sh rnaseq ' + str(batch) + ' ' + str(sample)
+            res = exec_commands('loadsample', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.2', shcommand, core_v1)
+            if "" == result:
+                result = res
+            else:
+                result = result + res
+            cnt = cnt + 1
+
+        print(result)
+
+        #make result file
+        directory = "/home/ubuntu/mlops-de-pipeline/" + odate
+        try:
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+        except OSError:
+            print("Error: Failed to create the directory.")
+        '''
+        f = open(directory + '/load_sample.txt','w')
+        f.write(str(res))
+        f.close()
+        '''
+        print(snakemake.output[0])
+        f = open(snakemake.output[0],'w')
+        f.write(str(result))
+        f.close()
+
+    else:
+        print("file not exist!!")
     s3.close()
     
-    #check remain sample list file
-    f = open(local_file, 'r')    
-    line = f.readline()
-    print("line",line)
     
-    f.close()    
-    
-    #Repeat load sample
-    cnt = 0
-    dict_line = eval(line)
-    result = ""
-    config.load_kube_config()
-    for i in dict_line:
-        batch = i['batch']
-        sample = i['sample']
-        config.load_kube_config()
-        try:
-            c = Configuration().get_default_copy()
-        except AttributeError:
-            c = Configuration()
-            c.assert_hostname = False
-        Configuration.set_default(c)
-        core_v1 = core_v1_api.CoreV1Api()
-        shcommand = '/java/datatransfer.sh rnaseq ' + str(batch) + ' ' + str(sample)
-        res = exec_commands('loadsample', '827884298122.dkr.ecr.us-west-2.amazonaws.com/minderadatatransfer-dev:v1.0.2', shcommand, core_v1)
-        if "" == result:
-            result = res
-        else:
-            result = result + res
-        cnt = cnt + 1
-
-    print(result)
-
-    #make result file
-    directory = "/home/ubuntu/mlops-de-pipeline/" + odate
-    try:
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-    except OSError:
-        print("Error: Failed to create the directory.")
-
-    f = open(directory + '/load_sample.txt','w')
-    f.write(str(res))
-    f.close()
-
-    print(snakemake.output[0])
-    f = open(snakemake.output[0],'w')
-    f.write(str(result))
-    f.close()
     
 def exec_commands(appname, image_name, commands, api_instance = None):
     namespace = 'default'
