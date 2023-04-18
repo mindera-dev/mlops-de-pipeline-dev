@@ -22,6 +22,8 @@ LOAD_MART_FILE = expand("/home/ubuntu/mlops-de-pipeline/{ODATE}/load_mart.txt", 
 # 전체 실행 룰 => export lime                    --> load lims   --┐ 
 #                sftp match1                    --> load match1 ---> load fs => load mart
 #                export sample => remain sample --> load sample --┘
+
+'''	
 rule all: 
 	input:
 		LOAD_SAMPLE_FILE 		
@@ -53,7 +55,7 @@ rule remain_sample: #sftp odm 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/remain_sample.py' 
-'''	
+
 rule all: 
 	input:
 		LOAD_LIMS_FILE 		
@@ -87,7 +89,7 @@ rule export_lims: #export lims 수행
 		f'{SCRIPTS_DIR}/export_lims.py' 
 		
 '''
-'''
+
 rule all: 
 	input:
 		LOAD_MART_FILE 		
@@ -209,4 +211,4 @@ rule remain_sample: #sftp odm 수행
 	script: 
 		f'{SCRIPTS_DIR}/remain_sample.py' 
 
-'''
+
