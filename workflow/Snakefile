@@ -28,7 +28,7 @@ rule all:
 		LOAD_LIMS_FILE 		
 	group: "pipeline"
 
-		
+'''	
 rule load_lims: #load lims 수행
 	input:
 		EXPORT_LIMS_FILE
@@ -178,4 +178,4 @@ rule remain_sample: #sftp odm 수행
 		"pipeline" 
 	script: 
 		f'{SCRIPTS_DIR}/remain_sample.py' 
-'''
+
