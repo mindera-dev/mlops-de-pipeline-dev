@@ -106,15 +106,15 @@ def exec_commands(appname, image_name, commands, api_instance = None):
                         "value": "postgres"
                       },
                       {
-                        "name": "dbhost_odm",
+                        "name": "dbhost_lims",
                         "value": "minderadbdev-cluster.cluster-crbuh5ce4q2a.us-east-1.rds.amazonaws.com"
                       },
                       {
-                        "name": "dbport_odm",
+                        "name": "dbport_lims",
                         "value": "54321"
                       },
                       {
-                        "name": "dbname_odm",
+                        "name": "dbname_lims",
                         "value": "minderadbdev"
                       },
                       {
