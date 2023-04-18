@@ -35,13 +35,14 @@ def main():
     print(res)
 
     #make result file
+    '''
     directory = "/home/ubuntu/mlops-de-pipeline/" + odate
     try:
         if not os.path.exists(directory):
             os.makedirs(directory)
     except OSError:
         print("Error: Failed to create the directory.")
-    '''
+    
     f = open(directory + '/export_lims.txt','w')
     f.write(str(res))
     f.close()
