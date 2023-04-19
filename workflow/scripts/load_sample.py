@@ -107,13 +107,14 @@ def main():
         print(result)
 
         #make result file
+        '''
         directory = "/home/ubuntu/mlops-de-pipeline/" + odate
         try:
             if not os.path.exists(directory):
                 os.makedirs(directory)
         except OSError:
             print("Error: Failed to create the directory.")
-        '''
+        
         f = open(directory + '/load_sample.txt','w')
         f.write(str(res))
         f.close()
