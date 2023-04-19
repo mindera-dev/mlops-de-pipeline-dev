@@ -35,6 +35,7 @@ def main():
     print(res)
 
     #make result file
+    '''
     directory = "/home/ubuntu/mlops-de-pipeline/" + odate
     try:
         if not os.path.exists(directory):
@@ -45,7 +46,7 @@ def main():
     f = open(directory + '/remain_sample.txt','w')
     f.write(str(res))
     f.close()
-
+       '''
     print(snakemake.output[0])
     f = open(snakemake.output[0],'w')
     f.write(str(res))
