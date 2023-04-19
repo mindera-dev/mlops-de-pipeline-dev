@@ -1,5 +1,5 @@
 outputs_dir: output_folders/TestProject/workflow3/AN10001 # 출력 S3 디렉토리 
 data_dir: input_folders/TestProject/workflow3/AN10001 # 데이터 입력 S3 디렉토리
 resources_dir: resource_folders/TestProject/workflow3 # jar 파일과 같은 리소스 파일이 있는 S3 디렉토리
-odate: 20230418 # YYYYMMDD 포멧의 현재날짜  
+odate: 20230419 # YYYYMMDD 포멧의 현재날짜  
 out_prefix : 20230313000000 # YYYYMMDDHHMMSS 포멧의 현재시각 
