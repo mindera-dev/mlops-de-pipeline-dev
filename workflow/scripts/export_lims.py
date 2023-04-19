@@ -30,7 +30,7 @@ def main():
         c.assert_hostname = False
     Configuration.set_default(c)
     core_v1 = core_v1_api.CoreV1Api()
-    shcommand = 'python3 mlops-de-get-lims.py odate'
+    shcommand = 'python3 mlops-de-get-lims.py ' + odate
     res = exec_commands('exportlims', '827884298122.dkr.ecr.us-west-2.amazonaws.com/lambda-py-dev:v2.0.4', shcommand, core_v1)
     print(res)
 
